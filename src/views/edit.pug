@@ -1,6 +1,9 @@
 extends base.pug
 
-
+//-    input 안에 name이 없으면 req.body가 읽을 수 없음
 
 block content 
-    h1 Edit Video 
+    h4  Change Title of video
+    form(method="POST")
+        input(name="title",  placeholder="Video Title", value=video.title,require)
+        input(value="Save", type="submit")
