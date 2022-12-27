@@ -18,13 +18,13 @@ html(lang="ko")
             //-                 a(href="/login") Login 
             h1=pageTitle
             nav 
-                ul  
-                    if pageTitle="home"
-                        li 
-                           a(href="/videos/upload") Upload Video
-                    else 
-                       li
-                          a(href="/") Go to Home
+               ul
+                 if pageTitle.home = true
+                    li 
+                        a(href="/videos/upload") Upload Videos
+                 else pageTitle.upload = true
+                    li 
+                        a(href="/") Go to Home
         main
             block content
     include partials/footer

@@ -3,6 +3,10 @@
 //     loggedIn:false,
 
 // }
+const pageTitle = {
+    home:"Home",
+    upload:"Upload"
+}
 
 let videos = [
     {
@@ -33,7 +37,7 @@ let videos = [
 
 
 export const trending = (req,res) => {
-    return res.render("home",{pageTitle:"Home",videos})
+    return res.render("home",{pageTitle:pageTitle.home,videos})
 }
 export const watch = (req,res) => {
    const {id} = req.params
@@ -58,7 +62,7 @@ export const postEdit = (req,res) => {
 }
 
 export const getUpload = (req,res) => {
-    return res.render("upload",{pageTitle:"Upload Videos"});
+    return res.render("upload",{pageTitle:pageTitle.upload});
 }
 
 export const postUpload = (req,res) => {
