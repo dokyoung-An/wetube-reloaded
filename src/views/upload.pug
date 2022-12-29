@@ -1,4 +1,15 @@
 extends base.pug
 
+//-  form(method="POST", action="/videos/otherurl") 다른 url로 받고 싶을 떄
+//- 보안을 위해서라도 maxlength 등은 schema 와 input 둘 다 설정해 줘야 한다
+
 block content 
-        h3 hello from upload 
+
+    if errorMessage
+        span=errorMessage
+    h5 What do you want upload?
+    form(method="POST", action="/videos/upload")
+        input(name="title", placeholder="Title", required, type="text", maxlength=80)
+        input(name="description", placeholder="Description", required, type="text", minlength=20)
+        input(name="hashtags", placeholder="Hashtags,separated by comma", required, type="text")
+        input(type="submit",value="Upload Video")

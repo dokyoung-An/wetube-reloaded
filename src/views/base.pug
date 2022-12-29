@@ -19,10 +19,10 @@ html(lang="ko")
             h1=pageTitle
             nav 
                ul
-                 if pageTitle.home = true
+                 if pageTitle == "Home"
                     li 
                         a(href="/videos/upload") Upload Videos
-                 else pageTitle.upload = true
+                 else 
                     li 
                         a(href="/") Go to Home
         main
