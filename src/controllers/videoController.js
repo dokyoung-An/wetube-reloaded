@@ -1,5 +1,5 @@
 import Video from "../models/video";
-import { formatHashtags } from "../models/video";
+
 
 // const fakeUser = {
 //     username:"Nicolas",
@@ -25,8 +25,9 @@ import { formatHashtags } from "../models/video";
 //     }
 // }
 
+// 오름차순으로 검색할 때는 sort({createAt:"asc"})
 export const home = async(req,res) => {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({createAt:"desc"});
     console.log(videos);
     return res.render("home",{pageTitle:"Home", videos});
 }
@@ -46,25 +47,26 @@ export const watch = async (req,res) => {
 export const getEdit = async (req,res) => {
     const {id} = req.params
     const video = await Video.findById(id);
+    const videos = await Video.find({}).sort({createAt:"desc"});
 
     if (!video) {
     return res.render("404",{pageTitle:"Video not found."})
     }
-    return res.render("edit",{pageTitle:`Editing: ${video.title}`,video})
+    return res.render("edit",{pageTitle:`Editing: ${video.title}`,video,videos})
 };
 //데이터를 서버로 보내는 녀석
 export const postEdit = async (req,res) => {
     const {id} = req.params;
     const {title,description,hashtags} = req.body;
 
-    const video= await Video.exists({_id:id});
+    const video= await Video.findById({_id:id});
     if(!video){
         res.render("404",{pageTitle:"Video not found"})
     }
     await Video.findByIdAndUpdate(id,{
         title,
         description,
-        hashtags:formatHashtags(hashtags),
+        hashtags:Video.formatHashtags(hashtags),
     }
         )
    
@@ -87,7 +89,7 @@ export const postUpload = async (req,res) => {
             title,
             description,
             createAt:Date.now(),
-            hashtags:formatHashtags(hashtags),
+            hashtags:Video.formatHashtags(hashtags),
         });
         return res.redirect("/");
     } catch(error) {
@@ -99,3 +101,21 @@ export const postUpload = async (req,res) => {
     }
 
 };  
+
+export const deleteVideo = async (req,res) => {
+   const {id} = req.params
+   await Video.findByIdAndDelete(id);
+    console.log(id);
+
+    return res.redirect("/")
+}
+
+export const search = (req,res) => {
+    const {keyword} = req.query;
+    console.log("should search for",keyword);
+
+    if(keyword) {
+        //
+    }
+    return res.render("search",{pageTitle:"Search Videos"})
+}

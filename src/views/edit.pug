@@ -1,4 +1,6 @@
 extends base.pug
+include mixins/video
+
 
 //-    input 안에 name이 없으면 req.body가 읽을 수 없음
 
@@ -9,3 +11,10 @@ block content
         input(name="description", placeholder="Description", required, type="text", minlength=20, value=video.description)
         input(name="hashtags", placeholder="Hashtags,separated by comma", required, type="text", value=video.hashtags.join())
         input(value="Save", type="submit")
+
+
+    h4 다른 건 쓸 수 없는건가?
+        each video in videos 
+        +video(video)
+
+    

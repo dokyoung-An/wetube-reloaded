@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 
-export const formatHashtags = (hashtags) =>
-hashtags.split(",").map((word) => (word.startsWith('#') ? word : `#${word}`))
-
 
 // 데이터에 대한 구체적 설정은 정말 정말 중요하다!!
 const videoSchema = new mongoose.Schema({
@@ -21,6 +18,12 @@ const videoSchema = new mongoose.Schema({
 //     this.hashtags = this.hashtags[0].split(',').map(word => word.startsWith('#') ? word:`#${word}`)
   
 // })
+
+//Video 모델에서 함수를 적어서 전체에서 사용
+videoSchema.static('formatHashtags', function(hashtags) {
+    return hashtags.split(",").map((word) => (word.startsWith('#') ? word : `#${word}`))
+
+})
 
 
 

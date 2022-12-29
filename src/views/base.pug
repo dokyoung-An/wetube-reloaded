@@ -21,10 +21,15 @@ html(lang="ko")
                ul
                  if pageTitle == "Home"
                     li 
-                        a(href="/videos/upload") Upload Videos
+                       a(href="/videos/upload") Upload Videos
+                    li  
+                       a(href="/search") Search
                  else 
                     li 
                         a(href="/") Go to Home
+                     
+                        
+                 
         main
             block content
     include partials/footer
